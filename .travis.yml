@@ -20,9 +20,9 @@ before_install:
 
 install:
   - mkdir bin
+  - ls
   - cd bin
   - pwd
-  - ls
   - cmake ../ -DWITH_WARNINGS=1 -=0 -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-Werror" -DCMAKE_CXX_FLAGS="-w" -DCMAKE_C_FLAGS_DEBUG="-DNDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="-DNDEBUG" 
  
 script:
