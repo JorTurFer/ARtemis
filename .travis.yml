@@ -15,10 +15,21 @@ addons:
       - libopencv-dev
 
 before_install:
-  - git config user.email "travis@build.bot" && git config user.name "Travis CI"
-  - git tag -a -m "Travis build" init
+  - sudo apt-get update
+
+before_script:
+  
 
 install:
+  - git clone https://github.com/Itseez/opencv.git
+  - git checkout $3.4.2
+  - cd opencv
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make -j4
+  - sudo make -j4 install
+  - cd ../..
   - mkdir bin
   - ls
   - cmake ../ -DWITH_WARNINGS=1 -=0 -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-Werror" -DCMAKE_CXX_FLAGS="-w" -DCMAKE_C_FLAGS_DEBUG="-DNDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="-DNDEBUG" 
