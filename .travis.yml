@@ -1,0 +1,29 @@
+sudo: false
+dist: trusty
+#warnings_are_errors: false
+
+os: linux
+language: cpp
+compiler: clang
+
+git:
+  depth: 10
+
+addons:
+  apt:
+    packages:
+      - libopencv-dev
+
+before_install:
+  - git config user.email "travis@build.bot" && git config user.name "Travis CI"
+  - git tag -a -m "Travis build" init
+
+install:
+  - mkdir bin
+  - cd bin
+  - cmake ../ -DWITH_WARNINGS=1 -=0 -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-Werror" -DCMAKE_CXX_FLAGS="-w" -DCMAKE_C_FLAGS_DEBUG="-DNDEBUG" -DCMAKE_CXX_FLAGS_DEBUG="-DNDEBUG" -DCMAKE_INSTALL_PREFIX=check_install
+ 
+script:
+  - $CXX --version
+   - cd bin
+  - make -j 4 -k && make install
